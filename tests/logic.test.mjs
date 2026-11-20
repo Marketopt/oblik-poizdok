@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {calcTime,period,monthTrips,workdays,totalValues,reportText,titleCity} from '../src/logic.ts';
+const weekday=calcTime('2026-11-20','07:00','19:00');
+assert.deepEqual(weekday,{duration:720,extra:180});
+assert.deepEqual(calcTime('2026-11-21','09:00','12:00'),{duration:180,extra:180});
+assert.deepEqual(calcTime('2026-11-20','08:00','18:00'),{duration:600,extra:60});
+assert.equal(titleCity('біла церква-центр'),'Біла Церква-Центр');
+assert.deepEqual(period('2026-11',{'2026-10':'2026-10-25'}),{from:'2026-10-26',to:'2026-11-30'});
+const trip={id:'a',date:'2026-11-20',city:'Київ',km:100,price:50,rate:8,liters:8,fuelCost:400,start:'07:00',end:'19:00',duration:720,extra:180,hotel:true,hotelName:'Тест',hotelPrice:1200,createdAt:1};
+assert.equal(monthTrips([trip],'2026-11',{}).length,1);
+assert.equal(totalValues([trip],'2026-11',30000).fuelPay,520);
+assert.equal(totalValues([trip],'2026-11',30000).hotel,1200);
+assert.ok(workdays('2026-11')>0);
+assert.match(reportText([trip],'2026-11',{}),/Київ/);
+console.log('PASS: 10 перевірок логіки');
