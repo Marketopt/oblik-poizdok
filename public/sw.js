@@ -1,4 +1,4 @@
-const CACHE='oblik-poizdok-shell-v6';
+const CACHE='oblik-poizdok-shell-v3';
 self.addEventListener('install', event => event.waitUntil((async () => {
   const cache=await caches.open(CACHE);
   const home=new URL('./',self.registration.scope).href;
