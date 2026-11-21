@@ -1,0 +1,22 @@
+name: Verify daily allowance feature
+on:
+  push:
+    branches:
+      - feature/dobovi-hotel-report
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Logic tests
+        run: npm run test:logic
+      - name: Compile and build
+        run: npm run build -- --base "/oblik-poizdok/"
